@@ -3,3 +3,6 @@
 
 # hide package-lock.json
 *-lock.json
+
+# hide config files
+.env
