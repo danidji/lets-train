@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Débutant",
+        "level": 1,
+        "description": "Commencez tout en douceur!",
+        "poster_image": "https://i.ibb.co/42gmhCq/MAIN-DEBUTANT.png"
+    },
+    {
+        "name": "Intérmédiaire",
+        "level": 2,
+        "description": "Lancez vous des défis et allez plus loin!",
+        "poster_image": "https://i.ibb.co/s6V5r1d/MAIN-INTERMEDIAIRE.png"
+    },
+    {
+        "name": "Avancé",
+        "level": 3,
+        "description": "Repoussez vos limites!",
+        "poster_image": "https://i.ibb.co/D57J8TW/MAIN-AVANCE.png"
+    }
+]
