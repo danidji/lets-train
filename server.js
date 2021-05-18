@@ -14,9 +14,6 @@ app.use(bodyParser.json());
 //Chargement des routes 
 require('./server/routes')(app);
 
-//Test connection à la bdd
-// require('./server/bdd/database')();
-
 
 // Ecoute du serveur port 3030
 app.listen(3030, () => {
