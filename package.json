@@ -1,0 +1,34 @@
+{
+  "name": "lets-train",
+  "version": "1.0.0",
+  "description": "Exo projet express - react - redux",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dgbelidji/lets-train.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dgbelidji/lets-train/issues"
+  },
+  "homepage": "https://github.com/dgbelidji/lets-train#readme",
+  "devDependencies": {
+    "axios": "^0.21.1",
+    "body-parser": "^1.19.0",
+    "dotenv": "^9.0.2",
+    "express": "^4.17.1"
+  },
+  "dependencies": {
+    "client": "0.0.1",
+    "create-react-app": "^4.0.3",
+    "mongoose": "^5.12.9"
+  }
+}

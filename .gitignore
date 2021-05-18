@@ -1,0 +1,5 @@
+# hide node module folder 
+/node_modules
+
+# hide package-lock.json
+*-lock.json
