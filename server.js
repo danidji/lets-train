@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 
 
 //Chargement des routes 
-// require('./serveur/routes')(app);
+require('./server/routes')(app);
 
 //Test connection à la bdd
 // require('./server/bdd/database')();
