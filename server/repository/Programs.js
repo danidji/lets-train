@@ -17,4 +17,16 @@ module.exports = class Programs {
     constructor() {
         this.db = mongoose.model('program', programSchema);
     }
+
+
+    add(data) {
+        return new Promise((resolve, reject) => {
+            this.db.create(data, (err, doc) => {
+                if (err) reject(err);
+                resolve(doc);
+            })
+        })
+    }
+
+
 }
