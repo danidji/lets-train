@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 
+import '../src/style/app.sass';
 function App() {
   return (
     <div className="App">
