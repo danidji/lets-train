@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 
 // connexion à la base de donnée 
-require('./server/bdd/database')();
+require('../bdd/database')();
 
 // Schéma de donées propres aux programmes 
 
 const programSchema = mongoose.Schema({
-    name: { type: String }
+    program_name: { type: String }
     , level: { type: Number }
     , description: { type: String }
     , poster_image: { type: String }
@@ -28,5 +28,12 @@ module.exports = class Programs {
         })
     }
 
-
+    findAll() {
+        return new Promise((resolve, reject) => {
+            this.db.find({}, (err, docs) => {
+                if (err) reject(err);
+                resolve(docs);
+            });
+        });
+    }
 }
