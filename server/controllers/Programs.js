@@ -6,11 +6,12 @@ module.exports = class Programs {
     print(req, res) {
         repo.findAll().then((result) => {
             console.log(`Programs -> repo.findAll -> result`, result)
+            res.send(result)
             // Retourner le résultat au client pour affichage (res.send ?? )
         })
     }
     processForm(req, res) {
-        // console.log(req.body.data);
+        console.log(req.body.data);
 
         let programData = {
             program_name: req.body.data.program_name
@@ -19,7 +20,7 @@ module.exports = class Programs {
             , poster_image: req.body.data.poster_image
         }
         console.log(`Programs -> processForm -> programData`, programData)
-        // repo.add(programData).then((result) => console.log('controllers', result))
+        repo.add(programData).then((result) => console.log('controllers', result))
 
     }
 }
