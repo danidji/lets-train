@@ -4,6 +4,7 @@ let repo = new Program();
 module.exports = (app) => {
 
     app.get('/liste-programme', (req, res) => {
+        console.log('YIOOOO');
         repo.print(req, res)
     })
     //inclure les vérifications formulaires

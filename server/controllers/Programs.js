@@ -7,7 +7,8 @@ module.exports = class Programs {
         repo.findAll().then((result) => {
             console.log(`Programs -> repo.findAll -> result`, result)
             res.send(result)
-            // Retourner le résultat au client pour affichage (res.send ?? )
+        }).catch((err) => {
+            console.log(err)
         })
     }
     processForm(req, res) {
