@@ -1,5 +1,5 @@
 import React from 'react';
-import { Formik, Field, Form } from 'formik';
+import { Formik, Field, Form, Button } from 'formik';
 import axios from "axios";
 import validator from "validator";
 
@@ -31,29 +31,61 @@ export default function FormPrograms(props) {
                     , description: ''
                     , poster_image: ''
                 }}
-                onSubmit={async (values, actions) => {
-                    // await new Promise((r) => setTimeout(r, 500));
-                    // => On peut ici envoyer nos valeurs à notre API
-                    let data = values;
-                    axios.post('/enregistrer-programme', { data })/* .then((response) => {
-                        console.log(`axios.post -> response`, response)
+                // onSubmit={(values, actions) => {
+                //     // await new Promise((r) => setTimeout(r, 500));
+                //     // => On peut ici envoyer nos valeurs à notre API
+                //     let data = values;
+                //     console.log(`FormPrograms -> data`, data)
+                //     axios.post('/api/programmes/ajouter', { data })/* .then((response) => {
+                //     console.log(`axios.post -> response`, response)
 
-                    }) */
-                    alert(JSON.stringify(values, null, 2));
+                //     }) */
+                //     alert(JSON.stringify(values, null, 2));
+                // }}
+                onSubmit={(values, actions) => {
+                    setTimeout(() => {
+                        alert(JSON.stringify(values, null, 2));
+                        console.log(`FormPrograms -> actions`, actions)
+                        actions.setSubmitting(false);
+                    }, 1000);
                 }}
             >
                 {(props) => (
-                    <form>
-                        <input type="text" id="program_name" name="program_name" placeholder="Nom du programme" onChange={props.handleChange} onBlur={props.handleBlur} value={props.values.program_name} />
+                    <form /* onSubmit={props.onSubmit} */>
+                        <input
+                            type="text"
+                            id="program_name"
+                            name="program_name"
+                            placeholder="Nom du programme"
+                            onChange={props.handleChange}
+                            onBlur={props.handleBlur}
+                            value={props.values.program_name}
+                        />
                         {props.errors.program_name && <div id="feedback">{props.errors.program_name}</div>}
                         <select id="level" name="level" >
                             <option value="1">Facile</option>
                             <option value="2">Intermédiaire</option>
                             <option value="3">Difficile</option>
                         </select>
-                        <input type="text" id="description" name="description" placeholder="Description du programme" onChange={props.handleChange} onBlur={props.handleBlur} value={props.values.description} />
+                        <input
+                            type="text"
+                            id="description"
+                            name="description"
+                            placeholder="Description du programme"
+                            onChange={props.handleChange}
+                            onBlur={props.handleBlur}
+                            value={props.values.description}
+                        />
                         {props.errors.description && <div id="feedback">{props.errors.description}</div>}
-                        <input type="text" id="poster_image" name="poster_image" placeholder="Saisir l'url du poster" onChange={props.handleChange} onBlur={props.handleBlur} value={props.poster_image} />
+                        <input
+                            type="text"
+                            id="poster_image"
+                            name="poster_image"
+                            placeholder="Saisir l'url du poster"
+                            onChange={props.handleChange}
+                            onBlur={props.handleBlur}
+                            value={props.poster_image}
+                        />
                         {props.errors.poster_image && <div id="feedback">{props.errors.poster_image}</div>}
                         <button type="submit" className="button_submit">Valider</button>
                     </form>
