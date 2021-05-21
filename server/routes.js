@@ -14,8 +14,8 @@ module.exports = (app) => {
 
     //affichage 
     app.get('/api/programmes/liste', (req, res) => {
-        setTimeout(repoProgram.print(req, res), 2000);
-
+        // setTimeout(repoProgram.print(req, res), 2000);
+        repoProgram.print(req, res)
     })
 
     //formulaire d'ajout
@@ -28,6 +28,7 @@ module.exports = (app) => {
 
     //affichage
     app.get('/api/sous-programmes/liste', (req, res) => {
+        console.log('Yooo');
         repoSubProg.print(req, res);
     })
 }

@@ -4,8 +4,7 @@ let repo = new SubPrograms();
 module.exports = class SubPrograms {
 
     print(req, res) {
-        // console.log('test', req);
-        repo.findProgramsContent(req.query.id).then((result) => {
+        repo.findProgramsContent(req.query.parentId).then((result) => {
             res.send(result)
         }).catch((err) => {
             console.log(err)
