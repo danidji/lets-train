@@ -6,7 +6,7 @@ require('../bdd/database')();
 // Schéma de donées propres aux programmes 
 
 const programSchema = mongoose.Schema({
-    program_name: { type: String }
+    name: { type: String }
     , level: { type: Number }
     , description: { type: String }
     , poster_image: { type: String }

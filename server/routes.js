@@ -3,16 +3,21 @@ let repo = new Program();
 
 module.exports = (app) => {
 
-    app.get('/liste-programme', (req, res) => {
-        console.log('YIOOOO');
+    app.get('/', (req, res) => {
+        res.send('Salut mec')
+    })
+
+
+    //affichage de la liste des programmes
+    app.get('/api/programmes/liste', (req, res) => {
         repo.print(req, res)
     })
-    //inclure les vérifications formulaires
-    app.post('/enregistrer-programme', (req, res) => {
-        // console.log(req.body);
+
+
+    //route gestion du formulaire d'ajout programmes 
+    // - inclure les vérifications formulaires
+    app.post('/api/programmes/ajouter', (req, res) => {
         repo.processForm(req, res)
 
-        // console.log('Yooo');
-        // res.send('réussi')
     })
 }
