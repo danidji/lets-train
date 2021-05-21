@@ -5,7 +5,7 @@ module.exports = class SubPrograms {
 
     print(req, res) {
         repo.findProgramsContent(req.query.parentId).then((result) => {
-            res.send(result)
+            setTimeout(() => res.send(result), 2000)
         }).catch((err) => {
             console.log(err)
         })

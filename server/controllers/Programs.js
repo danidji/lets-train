@@ -5,7 +5,8 @@ module.exports = class Programs {
 
     print(req, res) {
         repo.findAll().then((result) => {
-            res.send(result)
+            setTimeout(() => res.send(result), 2000)
+
         }).catch((err) => {
             console.log(err)
         })
