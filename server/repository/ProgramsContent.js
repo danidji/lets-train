@@ -5,7 +5,7 @@ require('../bdd/database')();
 
 
 //Définir un type "objectId"
-const ObjectId = mongoose.Types.ObjectId;
+// const ObjectId = mongoose.Types.ObjectId;
 
 
 // Schéma de données propres aux sous programmes 
@@ -23,7 +23,6 @@ module.exports = class SubPrograms {
     constructor() {
         this.db = mongoose.model('subprograms', programContentSchema);
     }
-
 
     add(data) {
         return new Promise((resolve, reject) => {
