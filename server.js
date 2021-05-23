@@ -5,12 +5,18 @@ require('dotenv').config();
 
 
 
+// // BodyParser
+// app.use(bodyParser.urlencoded({ extended: true }));
+// // parse application/json
+// app.use(bodyParser.json());
+
 // BodyParser
-app.use(bodyParser.urlencoded({ extended: true }));
-// parse application/json
-app.use(bodyParser.json());
-
-
+app.use(express.json());
+app.use(
+    express.urlencoded({
+        extended: true,
+    })
+);
 //Chargement des routes 
 require('./server/routes')(app);
 
