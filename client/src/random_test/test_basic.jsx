@@ -23,21 +23,22 @@ const Basic = () => (
                 } else {
                     errors.nameNotValide = '';
                 }
-                console.log('teste values : ', values);
-                console.log('var validator ===>', validator.isLength(values.name, 3, 10));
-                console.log('test du empty : ', empty(values.name));
-                console.log('errors =============> ', errors);
+                // console.log('teste values : ', values);
+                // console.log('var validator ===>', validator.isLength(values.name, 3, 10));
+                // console.log('test du empty : ', empty(values.name));
+                // console.log('errors =============> ', errors);
                 // return errors;
             }}
             onSubmit={(values, actions) => {
-                setTimeout(async () => {
+                setTimeout(() => {
                     // alert(JSON.stringify(values, null, 2));
                     // console.log('value : ', values);
                     actions.setSubmitting(false);
-                    await axios.post('/add-form', { dataPrograms: values })
-                        .then(res => {
-                            console.log('res : ', res);
-                        })
+                    console.log('Submit form !!!!', values)
+                    // await axios.post('/add-form', { dataPrograms: values })
+                    //     .then(res => {
+                    //         console.log('res : ', res);
+                    //     })
                     actions.resetForm({
                         values: {
                             name: '',
