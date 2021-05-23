@@ -2,11 +2,13 @@ import { Field, Form, Formik } from "formik";
 import axios from "axios";
 import React from "react";
 import validator from "validator";
+import empty from 'is-empty';
 
 function FormProg(props) {
     const validate = (value, type) => {
         // console.log(`validate -> value`, value)
         let error;
+
         if (type === "name" && value != undefined && !validator.isLength(value, { min: 1, max: 15 })) {
             error = "1 caractère ou 15 maxi";
         }
@@ -29,16 +31,17 @@ function FormProg(props) {
                 description: "",
                 poster_image: "",
             }}
-            onSubmit={(values) => {
 
-                // alert(JSON.stringify(values, null, 2))
+            onSubmit={(values, actions) => {
+
                 // console.log(`FormProg -> values`, values)
-                let data = values;
-                //     console.log(`FormPrograms -> data`, data)
-                axios.post('/api/programmes/ajouter', { data }).then((response) => {
+                axios.post('/api/programmes/ajouter', { data: values }).then((response) => {
                     console.log(`axios.post -> response`, response.data)
 
                 })
+                actions.setSubmitting(false);
+                console.log(`FormProg -> actions`, actions)
+                console.log(`FormProg -> values`, values)
             }}
         >
             {
@@ -53,7 +56,8 @@ function FormProg(props) {
                             placeholder="Nom du programme"
                         />
                         {errors.name && touched.name ? <div>{errors.name}</div> : null}
-                        <Field as="select" name="level" className="level">
+                        <Field as="select" name="level" className="level" value="default">
+                            <option value="default" disabled >Choisir la difficulté</option>
                             <option value="1">Facile</option>
                             <option value="2">Intermédiaire</option>
                             <option value="3">Difficile</option>
@@ -75,7 +79,7 @@ function FormProg(props) {
                         />
                         {errors.poster_image && touched.poster_image ? <div>{errors.poster_image}</div> : null}
 
-                        <button type="submit">Submit</button>
+                        <button type="submit">Valider</button>
                     </Form>
                 )
             }
