@@ -18,6 +18,7 @@ module.exports = class Programs {
             , description: req.body.data.description
             , poster_image: req.body.data.poster_image
         }
+        console.log(`Programs -> processForm -> programData`, programData)
         repo.add(programData).then((result) => {
             res.send(result)
         })

@@ -28,7 +28,7 @@ module.exports = (app) => {
 
     //affichage
     app.get('/api/sous-programmes/liste', (req, res) => {
-        console.log('Yooo');
+        // console.log('Yooo');
         repoSubProg.print(req, res);
     })
 }

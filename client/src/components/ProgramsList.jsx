@@ -11,13 +11,13 @@ export default function ProgramsList(props) {
     //         data = response.data;
     //     })
     // }, [])
-    return (
-        <>
-            <h1>YOoooo</h1>
-            <div className="data">{ }</div>
+    // return (
+    //     <>
+    //         <h1>YOoooo</h1>
+    //         <div className="data">{data}</div>
 
-        </>
-    )
+    //     </>
+    // )
 
 
 
