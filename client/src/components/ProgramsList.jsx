@@ -1,25 +1,51 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import axios from "axios";
-// import { response } from 'express';
+
+import ButtonEdit from './ButtonEdit';
+
 
 export default function ProgramsList(props) {
     const [state, setState] = useState({
-        data: []
+        data: [],
+        isHover: false
     })
 
-    function getData(data) {
-        return data.map((element, i) => {
-            return (
-                <div key={i} className="program_card" data-bgi={`url(${element.poster_image})`}>
-                    <Link className="link" to={'/api/sous-programmes/liste'}>
-                        <div className="element_image">
-                            <div className="name">{element.name}</div>
-                            {/* <img src={element.poster_image} alt="" /> */}
+    /**
+     * TODO 
+     *  -> Au hover sur l'élément : 
+     *          - Afficher un bouton supprimer et modifier 
+     *              -> Créer 2 composants et envoyer l'id dans les props
+     *              -> mettre un evénement onMouseEnter et mettre l'état du state à true
+     *              -> utiliser le dataset pour faire un evenement hover::after en css : doc : https://developer.mozilla.org/fr/docs/Web/CSS/::after
+     */
 
-                        </div>
-                        <div className="description">{element.description}</div>
-                    </Link>
+    const onHover = (e) => {
+        e.stopPropagation();
+        !state.isHover
+            ? setState({ ...state, isHover: true })
+            : setState({ ...state, isHover: false })
+    }
+
+
+
+    function getData(data) {
+
+
+
+        return data.map((element, i) => {
+            console.log(`returndata.map -> element`, element)
+
+
+            return (
+                <div key={i} className="program_card" onClick={props.onClick} onMouseEnter={(e) => onHover(e)} onMouseLeave={(e) => onHover(e)}>
+                    <div className="element_image">
+                        <div className={`name ${i % 2 === 0 ? 'right' : 'left'}`} >{element.name}</div>
+                        {state.isHover &&
+                            <ButtonEdit />}
+                        <img src={element.poster_image} alt="" />
+
+                    </div>
+                    <div className="description">{element.description}</div>
                 </div>
             )
         })

@@ -1,8 +1,11 @@
 import React from 'react';
 
-
 import FormProg from '../components/FormProg'
 import ProgramsList from '../components/ProgramsList';
+
+const onClick = () => {
+    // console.log('Yoooo!!');
+}
 
 
 export default function Home(props) {
@@ -10,7 +13,7 @@ export default function Home(props) {
         <div className="home_page">
             <h1>Salut mec</h1>
             <FormProg />
-            <ProgramsList />
+            <ProgramsList onClick={onClick} />
 
         </div>
     )
