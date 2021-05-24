@@ -4,6 +4,7 @@
     margin-bottom: 1.5rem
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px
     cursor: pointer
+    position: relative
 
     .element_image
         width: auto
@@ -29,6 +30,13 @@
             &:hover
                 opacity: .3
                 background-color: #284b63
+    .fake_elt
+        position: absolute
+        width: 100%
+        height: 100%
+        opacity: .6
+        background-color: #284b63
+        z-index: 1
 
     .button_edit
         position: absolute

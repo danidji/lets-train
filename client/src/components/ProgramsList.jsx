@@ -16,7 +16,7 @@ export default function ProgramsList(props) {
      *          - Afficher un bouton supprimer et modifier 
      *              -> Créer 2 composants et envoyer l'id dans les props
      *              -> mettre un evénement onMouseEnter et mettre l'état du state à true = Ok
-     *              -> utiliser le dataset pour faire un evenement hover::after en css : doc : https://developer.mozilla.org/fr/docs/Web/CSS/::after
+     *              
      */
 
 
@@ -38,8 +38,17 @@ export default function ProgramsList(props) {
                     <div className="element_image">
                         <div className={`name ${i % 2 === 0 ? 'right' : 'left'}`} >{element.name}</div>
                         {state.isHover &&
-                            <ButtonEdit index={i} />}
-                        {/* <ButtonEdit index={i} /> */}
+                            (
+                                <>
+                                    <div className="fake_elt">
+                                    </div>
+                                    <ButtonEdit index={i} />
+                                </>
+                            )
+                        }
+                        {/* <div className="fake_elt">
+                            <ButtonEdit index={i} />
+                        </div> */}
                         <img src={element.poster_image} alt="" />
 
                     </div>
