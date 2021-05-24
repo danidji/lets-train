@@ -5,13 +5,16 @@ module.exports = class Programs {
 
     print(req, res) {
         repo.findAll().then((result) => {
-            setTimeout(() => res.send(result), 2000)
+            setTimeout(() => res.send(result), 1000)
 
         }).catch((err) => {
             console.log(err)
         })
     }
     processForm(req, res) {
+
+
+
         let programData = {
             name: req.body.data.name
             , level: req.body.data.level
