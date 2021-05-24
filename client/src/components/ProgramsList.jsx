@@ -15,33 +15,31 @@ export default function ProgramsList(props) {
      *  -> Au hover sur l'élément : 
      *          - Afficher un bouton supprimer et modifier 
      *              -> Créer 2 composants et envoyer l'id dans les props
-     *              -> mettre un evénement onMouseEnter et mettre l'état du state à true
+     *              -> mettre un evénement onMouseEnter et mettre l'état du state à true = Ok
      *              -> utiliser le dataset pour faire un evenement hover::after en css : doc : https://developer.mozilla.org/fr/docs/Web/CSS/::after
      */
 
+
     const onHover = (e) => {
-        e.stopPropagation();
-        !state.isHover
-            ? setState({ ...state, isHover: true })
-            : setState({ ...state, isHover: false })
+        setState({ ...state, isHover: true })
     }
-
-
+    const outHover = () => {
+        setState({ ...state, isHover: false })
+    }
 
     function getData(data) {
 
-
-
         return data.map((element, i) => {
-            console.log(`returndata.map -> element`, element)
+            // console.log(`returndata.map -> element`, element)
 
 
             return (
-                <div key={i} className="program_card" onClick={props.onClick} onMouseEnter={(e) => onHover(e)} onMouseLeave={(e) => onHover(e)}>
+                <div key={i} className="program_card" onClick={props.onClick} onMouseEnter={(e) => onHover(e)} onMouseLeave={(e) => outHover(e)}>
                     <div className="element_image">
                         <div className={`name ${i % 2 === 0 ? 'right' : 'left'}`} >{element.name}</div>
                         {state.isHover &&
-                            <ButtonEdit />}
+                            <ButtonEdit index={i} />}
+                        {/* <ButtonEdit index={i} /> */}
                         <img src={element.poster_image} alt="" />
 
                     </div>
@@ -64,6 +62,7 @@ export default function ProgramsList(props) {
         // console.log(`ProgramsList -> myData`, myData)
 
     }
+
     return (
         <div className="program_list">
             <h1>Liste des Programmes</h1>
@@ -72,7 +71,5 @@ export default function ProgramsList(props) {
         </div>
 
     )
-
-
 
 }
