@@ -6,6 +6,13 @@ let repoSubProg = new SubPrograms();
 
 module.exports = (app) => {
 
+
+    /**TODO
+     * - inclure les vérifications formulaires
+     * - faire la route d'édition des sous programmes 
+     * - faire la route de suppression des sous programmes 
+     *  */
+
     app.get('/', (req, res) => {
         res.send('Salut mec')
     })
@@ -18,7 +25,7 @@ module.exports = (app) => {
     })
 
     //formulaire d'ajout
-    // TODO- inclure les vérifications formulaires
+
     app.post('/api/programmes/ajouter', (req, res) => {
         repoProgram.processForm(req, res)
     })
