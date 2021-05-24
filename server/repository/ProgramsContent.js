@@ -38,7 +38,7 @@ module.exports = class SubPrograms {
             this.db.find({ program: id }, (err, docs) => {
                 if (err) reject(err);
                 resolve(docs);
-            });
+            }).sort({ order: 1 });
         });
     }
 }
