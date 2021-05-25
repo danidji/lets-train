@@ -20,10 +20,13 @@ export default function ProgramsList(props) {
      */
 
 
-    const onHover = (e) => {
+    const onHover = (i, e) => {
+        console.log(`onHover -> i`, i)
+        console.log(`onHover -> e`, e)
+
         setState({ ...state, isHover: true })
     }
-    const outHover = () => {
+    const outHover = (i, e) => {
         setState({ ...state, isHover: false })
     }
 
@@ -34,7 +37,7 @@ export default function ProgramsList(props) {
 
 
             return (
-                <div key={i} className="program_card" onClick={props.onClick} onMouseEnter={(e) => onHover(e)} onMouseLeave={(e) => outHover(e)}>
+                <div key={i} className="program_card" onClick={props.onClick} onMouseEnter={(i, e) => onHover(i, e)} onMouseLeave={(i, e) => outHover(i, e)}>
                     <div className="element_image">
                         <div className={`name ${i % 2 === 0 ? 'right' : 'left'}`} >{element.name}</div>
                         {state.isHover &&
@@ -59,7 +62,7 @@ export default function ProgramsList(props) {
     }
     useEffect(() => {
         axios.get('/api/programmes/liste').then((response) => {
-            console.log(`axios.get -> response`, response.data)
+            // console.log(`axios.get -> response`, response.data)
             setState({ data: response.data });
         })
     }, [])
