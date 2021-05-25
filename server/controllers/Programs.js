@@ -6,15 +6,11 @@ module.exports = class Programs {
     print(req, res) {
         repo.findAll().then((result) => {
             setTimeout(() => res.send(result), 1000)
-            // console.log('mqlknvmDLkvn')
-            // res.send(result)
         }).catch((err) => {
             console.log(err)
         })
     }
     processForm(req, res) {
-
-
 
         let programData = {
             name: req.body.data.name
@@ -22,7 +18,6 @@ module.exports = class Programs {
             , description: req.body.data.description
             , poster_image: req.body.data.poster_image
         }
-        console.log(`Programs -> processForm -> programData`, programData)
         repo.add(programData).then((result) => {
             res.send(result)
         })
