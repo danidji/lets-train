@@ -6,7 +6,8 @@ module.exports = class Programs {
     print(req, res) {
         repo.findAll().then((result) => {
             setTimeout(() => res.send(result), 1000)
-
+            // console.log('mqlknvmDLkvn')
+            // res.send(result)
         }).catch((err) => {
             console.log(err)
         })

@@ -41,4 +41,15 @@ module.exports = class SubPrograms {
             }).sort({ order: 1 });
         });
     }
+
+    findNextPrograms(id, order) {
+        console.log('yoo', order);
+        return new Promise((resolve, reject) => {
+            this.db.findOne({ program: id, order: order }, (err, doc) => {
+                console.log('done');
+                if (err) reject(err);
+                resolve(doc);
+            })
+        })
+    }
 }

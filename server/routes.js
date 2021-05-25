@@ -36,4 +36,10 @@ module.exports = (app) => {
     app.get('/api/sous-programmes/liste', (req, res) => {
         repoSubProg.print(req, res);
     })
+
+    // Retourner le sous programme suivant
+    app.get('/api/sous-programmes/next-video', (req, res) => {
+        // console.log('yooo');
+        repoSubProg.printNext(req, res);
+    })
 }
