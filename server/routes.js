@@ -17,7 +17,9 @@ module.exports = (app) => {
         res.send('Salut mec')
     })
 
-    //ROUTES DE GESTION DES PROGRAMMES
+    /*************************************************
+     * ROUTES DE GESTION DES PROGRAMMES
+     */
 
     //affichage 
     app.get('/api/programmes/liste', (req, res) => {
@@ -30,7 +32,9 @@ module.exports = (app) => {
         repoProgram.processForm(req, res)
     })
 
-    //ROUTES DE GESTION DES SOUS PROGRAMMES
+    /********************************************
+     * ROUTES DE GESTION DES SOUS PROGRAMMES
+     */
 
     //affichage
     app.get('/api/sous-programmes/liste', (req, res) => {
@@ -42,4 +46,12 @@ module.exports = (app) => {
         // console.log('yooo');
         repoSubProg.printNext(req, res);
     })
+
+    /****************************************
+     * ROUTES DE GESTION DES USERS
+     */
+    // app.post('api/users/ajouter',(req,res)=>{
+
+    // })
+
 }
