@@ -4,6 +4,9 @@ let repoProgram = new Program();
 const SubPrograms = require('./controllers/ProgramsContent');
 let repoSubProg = new SubPrograms();
 
+const User = require('./controllers/Users');
+let repoUser = new User();
+
 module.exports = (app) => {
 
 
@@ -50,8 +53,13 @@ module.exports = (app) => {
     /****************************************
      * ROUTES DE GESTION DES USERS
      */
-    // app.post('api/users/ajouter',(req,res)=>{
+    // app.post('api/user/ajouter',(req,res)=>{
 
     // })
+
+    //login
+    app.post('/api/user/login', (req, res) => {
+        repoUser.processLogin(req, res);
+    })
 
 }
