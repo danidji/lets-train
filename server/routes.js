@@ -55,9 +55,9 @@ module.exports = (app) => {
      */
 
     // register
-    // app.post('/api/user/register', (req, res) => {
-
-    // })
+    app.post('/api/user/register', (req, res) => {
+        repoUser.processRegister(req, res);
+    })
 
     //login
     app.post('/api/user/login', (req, res) => {

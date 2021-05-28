@@ -104,6 +104,7 @@ module.exports = class User {
                 verifPass: verifPass !== password ? "Les deux mots de passe doivent être identique" : null
             };
             if (user) {
+                console.log(`User -> repoUser.findUser -> user`, user)
                 errors.email = "Cet utilisateur existe déjà";
             } else {
                 if (validator.isEmpty(email)) { // TODO importé et installé dépendence 
@@ -113,51 +114,52 @@ module.exports = class User {
                 } else {
                     errors.email = null;
                 }
+            }
+            if (!errors.email && !errors.password && !errors.verifPass) {
 
-                if (!errors.username && !errors.password && !errors.verifPass) {
+                let newUser = {
+                    email: email,
+                    password: password,
+                    uuid: generateGUID(),
+                    programsList: [],
+                    avatar: "",
+                }
 
-                    let newUser = {
-                        email: email,
-                        password: password,
-                        uuid: generateGUID(),
-                        programsList: [],
-                        avatar: "",
-                    }
+                // Hash du mot de passe 
+                bcrypt.genSalt(10, (err, salt) => {
+                    bcrypt.hash(newUser.password, salt, (err, hash) => {
+                        if (err) throw err;  // dans le cas de l'ecriture dans un fichier de log pour répertorier les erreurs : fs.appendFile('saltdebug.log', JSON.stringify(err));
 
-                    // Hash du mot de passe 
-                    bcrypt.genSalt(10, (err, salt) => {
-                        bcrypt.hash(newUser.password, salt, (err, hash) => {
-                            if (err) throw err;  // dans le cas de l'ecriture dans un fichier de log pour répertorier les erreurs : fs.appendFile('saltdebug.log', JSON.stringify(err));
+                        newUser.password = hash;
 
-                            newUser.password = hash;
+                        //enregistrement de l'utilisateur
+                        repoUser.add(newUser).then((user) => {
+                            // delete user["password"]; => penser a faire un clone deep dans le cas ou un save est réalisé
 
-                            //enregistrement de l'utilisateur
-                            repoUser.add(newUser).then((user) => {
-                                delete user["password"];
+                            const access_token = jwt.sign(
+                                { id: user.uuid },
+                                jwtConfig.secret,
+                                {
+                                    expiresIn: jwtConfig.expiresIn
+                                }
 
-                                const access_token = jwt.sign(
-                                    { id: user.uuid },
-                                    jwtConfig.secret,
-                                    {
-                                        expiresIn: jwtConfig.expiresIn
-                                    }
+                            );
+                            // On renvoie le token coté front
+                            const data = {
+                                // user: user, //
+                                access_token: access_token
+                            };
 
-                                );
-                                const data = {
-                                    user: user, //
-                                    access_token: access_token
-                                };
-
-                                res.json(data)
-                            })
+                            res.json(data)
                         })
                     })
+                })
 
 
-                } else {
-                    res.json({ errors: errors })
-                }
+            } else {
+                res.json({ errors: errors })
             }
+
         })
 
 
