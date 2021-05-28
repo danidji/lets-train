@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 
 
 const jwtConfig = {
-    secret: "dmdkjfmdskjfnsmkjvnmvoTUUTUUTùckl", // TODO déplacer dans un fichier de config
+    secret: "dmdkjfmdskjfnsmkjvnmv212121oTUUTUUTùckl", // TODO déplacer dans un fichier de config
     expiresIn: "2 days",
 };
 
@@ -17,6 +17,7 @@ module.exports = class User {
 
     processLogin(req, res) {
         const user = req.body.params.user;
+        console.log(`User -> processLogin -> user`, user)
 
         const { email, password } = user;
 
@@ -27,6 +28,8 @@ module.exports = class User {
                     email: user ? null : "Vérifier votre email",
                     password: user ? null : "Vérifier votre mot de pass"
                 }
+                console.log(`User -> repoUser.findUser -> user`, user)
+
                 //Si je récupère bien un utilisateur
                 if (user) {
                     //on compare le mdp en base avec celui saisie
@@ -67,6 +70,8 @@ module.exports = class User {
                             }
                         })
                 } else {
+                    console.log(`mes erreurs :`, errors)
+
                     res.json({ errors: errors })
                 }
             });

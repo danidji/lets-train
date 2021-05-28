@@ -17,13 +17,6 @@ app.use(
     })
 );
 
-//config JWT
-
-const jwtConfig = {
-    secret: keys.secretKey,
-    expiresIn: "2 days",
-};
-
 //Chargement des routes 
 require('./server/routes')(app);
 

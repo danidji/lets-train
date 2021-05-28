@@ -25,7 +25,7 @@ const userSchema = mongoose.Schema({
 }, { versionKey: false }, schemaOptions);
 
 
-module.export = class Users {
+module.exports = class User {
     constructor() {
         this.db = mongoose.model('users', userSchema);
     }
