@@ -53,7 +53,9 @@ module.exports = (app) => {
     /****************************************
      * ROUTES DE GESTION DES USERS
      */
-    // app.post('api/user/ajouter',(req,res)=>{
+
+    // register
+    // app.post('/api/user/register', (req, res) => {
 
     // })
 

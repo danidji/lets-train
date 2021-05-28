@@ -4,6 +4,7 @@ let repoUser = new User();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+const validator = require('validator')
 
 
 const jwtConfig = {
@@ -11,13 +12,22 @@ const jwtConfig = {
     expiresIn: "2 days",
 };
 
+// Génération d'un uuid unique
+function S4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+        .toString(16)
+        .substring(1)
+}
 
+function generateGUID() {
+    return S4() + S4();
+}
 
 module.exports = class User {
 
     processLogin(req, res) {
         const user = req.body.params.user;
-        console.log(`User -> processLogin -> user`, user)
+        // console.log(`User -> processLogin -> user`, user)
 
         const { email, password } = user;
 
@@ -57,7 +67,7 @@ module.exports = class User {
 
                                     const userData = {
                                         user: user, // object user sans le mdp
-                                        access_token: access_token
+                                        access_token: access_token   // token d'authification qui sera géré coté front avec le secureStore
                                     };
                                     //Envoi des données au front
                                     res.json({ data: userData, errors: errors })
@@ -80,5 +90,76 @@ module.exports = class User {
         } catch (error) {
             console.log(error);
         }
+    }
+
+
+    processRegister(req, res) {
+        const user = req.body.params.user;
+
+        const { email, password, verifPass } = user;
+
+        repoUser.findUser({ email: email }).then((user) => {
+            const errors = {
+                password: !password ? "Vérifier votr mot de passe" : null,
+                verifPass: verifPass !== password ? "Les deux mots de passe doivent être identique" : null
+            };
+            if (user) {
+                errors.email = "Cet utilisateur existe déjà";
+            } else {
+                if (validator.isEmpty(email)) { // TODO importé et installé dépendence 
+                    errors.email = "Vous devez indiquer un email";
+                } else if (!validator.isEmail(email)) {
+                    errors.email = "Ce n'est pas un email valide";
+                } else {
+                    errors.email = null;
+                }
+
+                if (!errors.username && !errors.password && !errors.verifPass) {
+
+                    let newUser = {
+                        email: email,
+                        password: password,
+                        uuid: generateGUID(),
+                        programsList: [],
+                        avatar: "",
+                    }
+
+                    // Hash du mot de passe 
+                    bcrypt.genSalt(10, (err, salt) => {
+                        bcrypt.hash(newUser.password, salt, (err, hash) => {
+                            if (err) throw err;  // dans le cas de l'ecriture dans un fichier de log pour répertorier les erreurs : fs.appendFile('saltdebug.log', JSON.stringify(err));
+
+                            newUser.password = hash;
+
+                            //enregistrement de l'utilisateur
+                            repoUser.add(newUser).then((user) => {
+                                delete user["password"];
+
+                                const access_token = jwt.sign(
+                                    { id: user.uuid },
+                                    jwtConfig.secret,
+                                    {
+                                        expiresIn: jwtConfig.expiresIn
+                                    }
+
+                                );
+                                const data = {
+                                    user: user, //
+                                    access_token: access_token
+                                };
+
+                                res.json(data)
+                            })
+                        })
+                    })
+
+
+                } else {
+                    res.json({ errors: errors })
+                }
+            }
+        })
+
+
     }
 }

@@ -39,4 +39,13 @@ module.exports = class User {
         });
     }
 
+    add(user) {
+        return new Promise((resolve, reject) => {
+            this.db.create(user, (err, doc) => {
+                if (err) reject(err);
+                resolve(doc);
+            })
+        })
+    }
+
 }
