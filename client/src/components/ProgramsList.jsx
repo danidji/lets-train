@@ -37,7 +37,7 @@ export default function ProgramsList(props) {
 
 
             return (
-                <div key={i} className="program_card" onClick={props.onClick} onMouseEnter={(i, e) => onHover(i, e)} onMouseLeave={(i, e) => outHover(i, e)}>
+                <div key={i} className="program_card" onClick={props.onClick} onMouseEnter={(e) => onHover(i, e)} onMouseLeave={(i, e) => outHover(i, e)}>
                     <div className="element_image">
                         <div className={`name ${i % 2 === 0 ? 'right' : 'left'}`} >{element.name}</div>
                         {state.isHover &&
