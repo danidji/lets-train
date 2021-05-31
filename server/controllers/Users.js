@@ -27,7 +27,7 @@ module.exports = class User {
 
     processLogin(req, res) {
         const user = req.body.params.user;
-        // console.log(`User -> processLogin -> user`, user)
+        console.log(`User -> processLogin -> user`, user)
 
         const { email, password } = user;
 
@@ -38,7 +38,7 @@ module.exports = class User {
                     email: user ? null : "Vérifier votre email",
                     password: user ? null : "Vérifier votre mot de pass"
                 }
-                console.log(`User -> repoUser.findUser -> user`, user)
+                // console.log(`User -> repoUser.findUser -> user`, user)
 
                 //Si je récupère bien un utilisateur
                 if (user) {
@@ -69,8 +69,11 @@ module.exports = class User {
                                         user: user, // object user sans le mdp
                                         access_token: access_token   // token d'authification qui sera géré coté front avec le secureStore
                                     };
+                                    // console.log(`User -> .then -> userData`, userData)
                                     //Envoi des données au front
-                                    res.json({ data: userData, errors: errors })
+
+
+                                    res.json({ data: userData, errors: {} })
                                 }
                             } else {
                                 errors = {
@@ -104,10 +107,10 @@ module.exports = class User {
                 verifPass: verifPass !== password ? "Les deux mots de passe doivent être identique" : null
             };
             if (user) {
-                console.log(`User -> repoUser.findUser -> user`, user)
+                // console.log(`User -> repoUser.findUser -> user`, user)
                 errors.email = "Cet utilisateur existe déjà";
             } else {
-                if (validator.isEmpty(email)) { // TODO importé et installé dépendence 
+                if (validator.isEmpty(email)) {
                     errors.email = "Vous devez indiquer un email";
                 } else if (!validator.isEmail(email)) {
                     errors.email = "Ce n'est pas un email valide";
@@ -146,7 +149,7 @@ module.exports = class User {
                             );
                             // On renvoie le token coté front
                             const data = {
-                                // user: user, //
+                                // user: user
                                 access_token: access_token
                             };
 
