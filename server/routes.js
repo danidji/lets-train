@@ -7,6 +7,33 @@ let repoSubProg = new SubPrograms();
 const User = require('./controllers/Users');
 let repoUser = new User();
 
+
+const multer = require("multer"); // pour le téléchargement de fichier 
+
+
+// gestion de l'enregistrement fichier via multer
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, "../uploads")
+    },
+    filename: function (req, file, cb) {
+
+        console.log(`file`, file)
+        cb(null, file.originalname)
+    }
+});
+
+const upload = multer({
+    storage: storage
+    , limits: { // gestion de la limite des fichiers acceptés
+        fileSize: 1024 * 1024 * 50 // 50mB max
+    }
+});
+
+
+
+
+
 module.exports = (app) => {
 
 
@@ -62,6 +89,11 @@ module.exports = (app) => {
     //login
     app.post('/api/user/login', (req, res) => {
         repoUser.processLogin(req, res);
+    })
+
+    //enregistrement image avatar
+    app.post('/api/user/edit/avatar-image', upload.single("image"), (req, res) => {
+        repoUser.editAvatarImage(req, res);
     })
 
 }

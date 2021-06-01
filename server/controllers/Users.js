@@ -6,10 +6,9 @@ const jwt = require("jsonwebtoken");
 
 const validator = require('validator')
 
-
 const jwtConfig = {
     secret: "dmdkjfmdskjfnsmkjvnmv212121oTUUTUUTùckl", // TODO déplacer dans un fichier de config
-    expiresIn: "2 days",
+    expiresIn: "2days",
 };
 
 // Génération d'un uuid unique
@@ -167,4 +166,10 @@ module.exports = class User {
 
 
     }
+
+    editAvatarImage(req, res) {
+        // const file = req.file; // on récupère notre image
+
+    }
+
 }
