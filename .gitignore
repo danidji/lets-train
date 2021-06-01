@@ -1,6 +1,9 @@
 # hide node module folder 
 /node_modules
 
+# hide image folder upload
+/server/uploads
+
 # hide package-lock.json
 *-lock.json
 
