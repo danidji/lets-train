@@ -19,10 +19,12 @@ app.use(
 );
 
 //middleware fichier static
-app.use('/server', express.static(path.join(__dirname, 'uploads')))
+app.use('/uploads', express.static('server/uploads'));
 
-
+//middleware de vérification de token d'authentification => à charger pour chacune des routes
 const tokenChecker = require('./server/services/tokenChecker');
+app.use(tokenChecker);
+
 
 //Chargement des routes 
 require('./server/routes')(app);

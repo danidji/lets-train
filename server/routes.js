@@ -14,7 +14,7 @@ const multer = require("multer"); // pour le téléchargement de fichier
 // gestion de l'enregistrement fichier via multer
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, "../uploads")
+        cb(null, "./server/uploads")
     },
     filename: function (req, file, cb) {
 
@@ -94,6 +94,15 @@ module.exports = (app) => {
     //enregistrement image avatar
     app.post('/api/user/edit/avatar-image', upload.single("image"), (req, res) => {
         repoUser.editAvatarImage(req, res);
-    })
+    });
 
+    //vérification du token d'authentification 
+    app.get('/api/user/check', (req, res) => {
+
+        // const { data } = req;
+        // const { user } = data;
+        res.json({
+            user: req.data.user
+        })
+    })
 }

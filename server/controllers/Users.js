@@ -168,7 +168,20 @@ module.exports = class User {
     }
 
     editAvatarImage(req, res) {
-        // const file = req.file; // on récupère notre image
+        const file = req.file; // on récupère notre image si besoin 
+        const data = req.data // data à été créer dans le middleware
+
+
+        repoUser.findAndUpdate({ _id: data.user._id }, { avatar: file.filename })
+            .then((data) => {
+
+                setTimeout(() => { // escroquerie pour apprécié l'effet de chargement
+                    delete data["password"];
+
+                    res.send(data) // on renvoie le user entier sans le password avec les nouvelles données
+
+                }, 1000);
+            })
 
     }
 

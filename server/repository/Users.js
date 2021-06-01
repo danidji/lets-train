@@ -12,6 +12,7 @@ const schemaOptions = {
     timestamps: { // ajout de la date et l'heure à la création et modification
         createdAt: "created_at", updatedAt: "edited_at"
     }
+    , versionKey: false
 };
 
 // Schéma de données propres aux sous programmes 
@@ -22,7 +23,7 @@ const userSchema = mongoose.Schema({
     , programsList: { type: Array }
     , uuid: { type: String, required: true } // permet d'avoir un ID pour récupérer le user dans le passport
 
-}, { versionKey: false }, schemaOptions);
+}, schemaOptions);
 
 
 module.exports = class User {
@@ -45,6 +46,22 @@ module.exports = class User {
                 if (err) reject(err);
                 resolve(doc);
             })
+        })
+    }
+
+    // docs : https://devdocs.io/mongoose/api/model#model_Model.findOneAndUpdate
+    findAndUpdate(objToFind, objToUpdate) {
+        return new Promise((resolve, reject) => {
+            this.db.findOneAndUpdate(
+                objToFind
+                , objToUpdate
+                , {
+                    new: true, useFindAndModify: false
+                })
+                .then((err, doc) => {
+                    if (err) reject(err);
+                    resolve(doc);
+                })
         })
     }
 
