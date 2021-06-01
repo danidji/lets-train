@@ -4,6 +4,36 @@ let repoProgram = new Program();
 const SubPrograms = require('./controllers/ProgramsContent');
 let repoSubProg = new SubPrograms();
 
+const User = require('./controllers/Users');
+let repoUser = new User();
+
+
+const multer = require("multer"); // pour le téléchargement de fichier 
+
+
+// gestion de l'enregistrement fichier via multer
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, "./server/uploads")
+    },
+    filename: function (req, file, cb) {
+
+        console.log(`file`, file)
+        cb(null, file.originalname)
+    }
+});
+
+const upload = multer({
+    storage: storage
+    , limits: { // gestion de la limite des fichiers acceptés
+        fileSize: 1024 * 1024 * 50 // 50mB max
+    }
+});
+
+
+
+
+
 module.exports = (app) => {
 
 
@@ -17,7 +47,9 @@ module.exports = (app) => {
         res.send('Salut mec')
     })
 
-    //ROUTES DE GESTION DES PROGRAMMES
+    /*************************************************
+     * ROUTES DE GESTION DES PROGRAMMES
+     */
 
     //affichage 
     app.get('/api/programmes/liste', (req, res) => {
@@ -30,7 +62,9 @@ module.exports = (app) => {
         repoProgram.processForm(req, res)
     })
 
-    //ROUTES DE GESTION DES SOUS PROGRAMMES
+    /********************************************
+     * ROUTES DE GESTION DES SOUS PROGRAMMES
+     */
 
     //affichage
     app.get('/api/sous-programmes/liste', (req, res) => {
@@ -41,5 +75,34 @@ module.exports = (app) => {
     app.get('/api/sous-programmes/next-video', (req, res) => {
         // console.log('yooo');
         repoSubProg.printNext(req, res);
+    })
+
+    /****************************************
+     * ROUTES DE GESTION DES USERS
+     */
+
+    // register
+    app.post('/api/user/register', (req, res) => {
+        repoUser.processRegister(req, res);
+    })
+
+    //login
+    app.post('/api/user/login', (req, res) => {
+        repoUser.processLogin(req, res);
+    })
+
+    //enregistrement image avatar
+    app.post('/api/user/edit/avatar-image', upload.single("image"), (req, res) => {
+        repoUser.editAvatarImage(req, res);
+    });
+
+    //vérification du token d'authentification 
+    app.get('/api/user/check', (req, res) => {
+
+        // const { data } = req;
+        // const { user } = data;
+        res.json({
+            user: req.data.user
+        })
     })
 }

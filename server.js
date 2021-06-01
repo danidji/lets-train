@@ -1,22 +1,31 @@
 const express = require('express');
 const app = express();
-const bodyParser = require('body-parser');
+const path = require('path');
 require('dotenv').config();
 
 
+// //dependances pour l'auth
+// const bcrypt = require("bcryptjs");
+// const passport = require("passport"); // pour la gestion des authentification
+// const jwt = require("jsonwebtoken");
+// const multer = require("multer"); // pour le téléchargement de fichier 
 
-// // BodyParser
-// app.use(bodyParser.urlencoded({ extended: true }));
-// // parse application/json
-// app.use(bodyParser.json());
-
-// BodyParser
+// BodyParser => mise à jour, le module BodyParser n'est pas plus utile avec express 4.16
 app.use(express.json());
 app.use(
     express.urlencoded({
         extended: true,
     })
 );
+
+//middleware fichier static
+app.use('/uploads', express.static('server/uploads'));
+
+//middleware de vérification de token d'authentification => à charger pour chacune des routes
+const tokenChecker = require('./server/services/tokenChecker');
+app.use(tokenChecker);
+
+
 //Chargement des routes 
 require('./server/routes')(app);
 
